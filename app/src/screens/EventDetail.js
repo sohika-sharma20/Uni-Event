@@ -182,24 +182,25 @@ export default function EventDetail({ route, navigation }) {
             },
         );
 
-       if (user) {
-         getDoc(doc(db, `events/${eventId}/feedback`, user.uid)).then(snap => {
+        if (user) {
+            getDoc(doc(db, `events/${eventId}/feedback`, user.uid)).then(snap => {
                 if (snap.exists()) setHasGivenFeedback(true);
             });
         }
         // Check if reminder exists
-       if (user) {
+        if (user) {
             getDocs(
                 query(
                     collection(db, 'reminders'),
                     where('userId', '==', user.uid),
                     where('eventId', '==', eventId),
-        ),
-        ).then(snap => {
-            if (!snap.empty) {
-                setReminderId(snap.docs[0].id);
-            }
-        });
+                ),
+            ).then(snap => {
+                if (!snap.empty) {
+                    setReminderId(snap.docs[0].id);
+                }
+            });
+        }
 
         // Check if event is bookmarked
         if (user) {
@@ -776,13 +777,13 @@ export default function EventDetail({ route, navigation }) {
                         "Success",
                         "Certificate generated successfully!",
                         [
-                           {
-                              text: "Add to LinkedIn",
-                              onPress: handleLinkedInShare
+                            {
+                                text: "Add to LinkedIn",
+                                onPress: handleLinkedInShare
                             },
                             {
-                             text: "OK",
-                             style: "cancel"
+                                text: "OK",
+                                style: "cancel"
                             }
                         ]
                     );
@@ -796,27 +797,27 @@ export default function EventDetail({ route, navigation }) {
         }
     };
     const handleLinkedInShare = async () => {
-    try {
-        const linkedinUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME`;
+        try {
+            const linkedinUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME`;
 
-        const certificateName = encodeURIComponent(event.title);
-        const organizationName = encodeURIComponent("UniEvent");
-        const issueYear = new Date(event.startAt).getFullYear();
-        const issueMonth = new Date(event.startAt).getMonth() + 1;
+            const certificateName = encodeURIComponent(event.title);
+            const organizationName = encodeURIComponent("UniEvent");
+            const issueYear = new Date(event.startAt).getFullYear();
+            const issueMonth = new Date(event.startAt).getMonth() + 1;
 
-        const finalUrl =
-            `${linkedinUrl}` +
-            `&name=${certificateName}` +
-            `&organizationName=${organizationName}` +
-            `&issueYear=${issueYear}` +
-            `&issueMonth=${issueMonth}`;
+            const finalUrl =
+                `${linkedinUrl}` +
+                `&name=${certificateName}` +
+                `&organizationName=${organizationName}` +
+                `&issueYear=${issueYear}` +
+                `&issueMonth=${issueMonth}`;
 
-        await Linking.openURL(finalUrl);
-    } catch (error) {
-        console.log(error);
-        Alert.alert("Error", "Failed to open LinkedIn");
-    }
-};
+            await Linking.openURL(finalUrl);
+        } catch (error) {
+            console.log(error);
+            Alert.alert("Error", "Failed to open LinkedIn");
+        }
+    };
 
     const handleSendCertificates = async () => {
         console.log('Send Certificates Button Clicked');
@@ -1785,10 +1786,10 @@ export default function EventDetail({ route, navigation }) {
                                         onPress={
                                             event.certificatesSent
                                                 ? () =>
-                                                      Alert.alert(
-                                                          'Sent',
-                                                          'Certificates have already been sent.',
-                                                      )
+                                                    Alert.alert(
+                                                        'Sent',
+                                                        'Certificates have already been sent.',
+                                                    )
                                                 : handleSendCertificates
                                         }
                                         disabled={sendingCertificates}
@@ -1830,8 +1831,8 @@ export default function EventDetail({ route, navigation }) {
                                             {sendingCertificates
                                                 ? 'Sending...'
                                                 : event.certificatesSent
-                                                  ? 'Certificates Sent'
-                                                  : 'Send Certificates'}
+                                                    ? 'Certificates Sent'
+                                                    : 'Send Certificates'}
                                         </Text>
                                     </TouchableOpacity>
                                 )}
@@ -1900,10 +1901,10 @@ export default function EventDetail({ route, navigation }) {
                             styles.primaryBtn,
                             rsvpStatus === 'going' && styles.secondaryBtn,
                             new Date(event.endAt) < new Date() &&
-                                !(rsvpStatus === 'going' && event.certificatesSent) && {
-                                    backgroundColor: theme.colors.textSecondary,
-                                    borderColor: theme.colors.textSecondary,
-                                },
+                            !(rsvpStatus === 'going' && event.certificatesSent) && {
+                                backgroundColor: theme.colors.textSecondary,
+                                borderColor: theme.colors.textSecondary,
+                            },
                         ]}
                         onPress={
                             new Date(event.endAt) < new Date()
@@ -1922,9 +1923,9 @@ export default function EventDetail({ route, navigation }) {
                                 styles.primaryBtnText,
                                 rsvpStatus === 'going' && styles.secondaryBtnText,
                                 new Date(event.endAt) < new Date() &&
-                                    !(rsvpStatus === 'going' && event.certificatesSent) && {
-                                        color: '#fff',
-                                    },
+                                !(rsvpStatus === 'going' && event.certificatesSent) && {
+                                    color: '#fff',
+                                },
                             ]}
                         >
                             {new Date(event.endAt) < new Date()
@@ -1936,7 +1937,7 @@ export default function EventDetail({ route, navigation }) {
                                 : rsvpStatus === 'going'
                                   ? 'Registered ✓'
                                   : event.isPaid
-                                    ? `Book Ticket (${ebInfo.isEligible ? '\u20B9' + ebInfo.currentPrice + ' Early Bird' : '\u20B9' + (event.price ?? 0)})`
+                                    ? `Book Ticket (₹${event.price})`
                                     : 'RSVP Now'}
                         </Text>
                     </TouchableOpacity>

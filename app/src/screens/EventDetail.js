@@ -738,20 +738,16 @@ export default function EventDetail({ route, navigation }) {
                 if (await Sharing.isAvailableAsync()) {
                     await Sharing.shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
                 } else {
-                    Alert.alert(
-                        "Success",
-                        "Certificate generated successfully!",
-                        [
-                            {
-                                text: "Add to LinkedIn",
-                                onPress: handleLinkedInShare
-                            },
-                            {
-                                text: "OK",
-                                style: "cancel"
-                            }
-                        ]
-                    );
+                    Alert.alert('Success', 'Certificate generated successfully!', [
+                        {
+                            text: 'Add to LinkedIn',
+                            onPress: handleLinkedInShare,
+                        },
+                        {
+                            text: 'OK',
+                            style: 'cancel',
+                        },
+                    ]);
                 }
             }
         } catch (e) {
@@ -766,7 +762,7 @@ export default function EventDetail({ route, navigation }) {
             const linkedinUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME`;
 
             const certificateName = encodeURIComponent(event.title);
-            const organizationName = encodeURIComponent("UniEvent");
+            const organizationName = encodeURIComponent('UniEvent');
             const issueYear = new Date(event.startAt).getFullYear();
             const issueMonth = new Date(event.startAt).getMonth() + 1;
 
@@ -780,7 +776,7 @@ export default function EventDetail({ route, navigation }) {
             await Linking.openURL(finalUrl);
         } catch (error) {
             console.log(error);
-            Alert.alert("Error", "Failed to open LinkedIn");
+            Alert.alert('Error', 'Failed to open LinkedIn');
         }
     };
 
@@ -1279,10 +1275,10 @@ export default function EventDetail({ route, navigation }) {
                                         onPress={
                                             event.certificatesSent
                                                 ? () =>
-                                                    Alert.alert(
-                                                        'Sent',
-                                                        'Certificates have already been sent.',
-                                                    )
+                                                      Alert.alert(
+                                                          'Sent',
+                                                          'Certificates have already been sent.',
+                                                      )
                                                 : handleSendCertificates
                                         }
                                         disabled={sendingCertificates}
@@ -1324,8 +1320,8 @@ export default function EventDetail({ route, navigation }) {
                                             {sendingCertificates
                                                 ? 'Sending...'
                                                 : event.certificatesSent
-                                                    ? 'Certificates Sent'
-                                                    : 'Send Certificates'}
+                                                  ? 'Certificates Sent'
+                                                  : 'Send Certificates'}
                                         </Text>
                                     </TouchableOpacity>
                                 )}
@@ -1394,10 +1390,10 @@ export default function EventDetail({ route, navigation }) {
                             styles.primaryBtn,
                             rsvpStatus === 'going' && styles.secondaryBtn,
                             new Date(event.endAt) < new Date() &&
-                            !(rsvpStatus === 'going' && event.certificatesSent) && {
-                                backgroundColor: theme.colors.textSecondary,
-                                borderColor: theme.colors.textSecondary,
-                            },
+                                !(rsvpStatus === 'going' && event.certificatesSent) && {
+                                    backgroundColor: theme.colors.textSecondary,
+                                    borderColor: theme.colors.textSecondary,
+                                },
                         ]}
                         onPress={
                             new Date(event.endAt) < new Date()
@@ -1416,9 +1412,9 @@ export default function EventDetail({ route, navigation }) {
                                 styles.primaryBtnText,
                                 rsvpStatus === 'going' && styles.secondaryBtnText,
                                 new Date(event.endAt) < new Date() &&
-                                !(rsvpStatus === 'going' && event.certificatesSent) && {
-                                    color: '#fff',
-                                },
+                                    !(rsvpStatus === 'going' && event.certificatesSent) && {
+                                        color: '#fff',
+                                    },
                             ]}
                         >
                             {new Date(event.endAt) < new Date()
@@ -1428,10 +1424,10 @@ export default function EventDetail({ route, navigation }) {
                                         : 'Event Ended'
                                     : 'Closed'
                                 : rsvpStatus === 'going'
-                                    ? 'Registered ✓'
-                                    : event.isPaid
-                                        ? `Book Ticket (₹${event.price})`
-                                        : 'RSVP Now'}
+                                  ? 'Registered ✓'
+                                  : event.isPaid
+                                    ? `Book Ticket (₹${event.price})`
+                                    : 'RSVP Now'}
                         </Text>
                     </TouchableOpacity>
                 </View>

@@ -27,6 +27,7 @@ import {
     Text,
     TouchableOpacity,
     View,
+    Share
 } from 'react-native';
 import FeedbackModal from '../components/FeedbackModal';
 import AppealModal from '../components/AppealModal';
